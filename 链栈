@@ -1,0 +1,95 @@
+#include <stdio.h>
+#include <malloc.h>
+
+#define ElemType char
+
+typedef struct node
+{
+    ElemType data;
+    struct node * next;
+}LinkStack;
+
+//链栈键空栈
+LinkStack * setStack()
+{
+    LinkStack * LS = NULL;
+    return LS;
+}
+
+//链栈判栈空
+int StackEmpty(LinkStack * LS)
+{
+    if(LS == NULL)
+        return 1;
+    else
+        return 0;
+}
+
+//链栈取栈顶元素
+ElemType getTop(LinkStack * LS)
+{
+    if(LS == NULL)
+        return 0;
+    else
+        return LS->data;    //用头插法插入元素，所以头结点就是栈顶
+}
+
+//链栈入栈
+LinkStack* Push(LinkStack * LS, ElemType ch)
+{
+    LinkStack * p;
+    p = (LinkStack*)malloc(sizeof(LinkStack));
+    p->data = ch;
+    p->next = LS;
+    LS = p;
+    return LS;
+}
+
+//链栈出栈
+LinkStack * Pop(LinkStack * LS)
+{
+    LinkStack * p = LS;
+    LS = LS->next;
+    free(p);
+    return LS;
+}
+
+//链栈置空
+LinkStack * InitStrack(LinkStack * LS)
+{
+    while (LS != NULL)
+    {
+        LS = Pop(LS);
+    }
+    return LS;
+}
+
+//输出链栈所有元素
+void showStack(LinkStack * LS)
+{
+    LinkStack * p = LS;
+    while(p != NULL)
+    {
+        printf("%c\t", getTop(p));
+        p = p->next;
+    }
+    printf("\n");
+}
+
+int main(void)
+{
+    LinkStack * LS = setStack();
+    LS = Push(LS, 'A');
+    LS = Push(LS, 'B');
+    LS = Push(LS, 'C');
+    LS = Push(LS, 'D');
+    LS = Push(LS, 'E');
+
+    showStack(LS);
+    LS = Pop(LS);   //E出栈
+    showStack(LS);
+    LS = Pop(LS);   //D出栈
+    showStack(LS);
+
+    return 0;
+}
