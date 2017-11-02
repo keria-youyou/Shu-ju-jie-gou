@@ -1,0 +1,9 @@
+首先克隆到桌面
+git clone 地址
+然后
+git add *
+再然后
+git commit -m "first commit"
+最后
+git push
+就好了
